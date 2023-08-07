@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Introduce</title>
+    <script>
+        $(document).ready(function () {
+            $.get("http://localhost:3000/", function (data, status) {
+                $('#content').html(data)
+            });
+
+            var user = localStorage.getItem("user");
+            if (user === null || user === undefined) {
+                $("#user").html("Tài Khoản")
+            }
+            else {
+                var objUser = JSON.parse(user);
+                $("#user").html(objUser[0].fullname);
+
+                // alert(objUser[0].name)
+            }
+
+        });
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+        }
+
+        function search(event) {
+            if (event.keyCode === 13) {
+                $.post("http://localhost:3000/search", {
+                    search: $('#search').val()
+                }, function (data, status) {
+                    $('#content').html(data)
+                });
+            }
+        }
+
+        function menuClick(productType) {
+
+            $.post("http://localhost:3000/getProductByCatId", {
+                catId: productType
+            }, function (data, status) {
+                $('#content').html(data)
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="boxcenter">
+
+        <div class="row header">
+            <h1>SIÊU THỊ COOPMART HÀM TÂN</h1>
+        </div>
+
+        <div class="row mb menu">
+            <ul>
+                <li><a href="index">Trang chủ</a></li>
+                <li><a href="introduce.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="advise.html">Tư vấn</a></li>
+                <li><a class="login" href="login.html">Đăng nhập</a></li>
+            </ul>
+        </div>
+
+        <div class="row mb">
+
+            <div class="boxtrai mr">
+                <div class="title1">Giới thiệu về Co.opmart</div>
+
+                <div class="row td">
+
+                    <div class="textcontent">
+                        <div class="mintitle">Về Saigon Co.op - Đơn vị quản lý hệ thống siêu thị Co.opmart</div>
+
+                        <div class="textintro">
+                            <p>
+                                Khởi nghiệp từ năm 1989, sau đại hội Đảng lần thứ VI, nền kinh tế đất nước chuyển từ cơ
+                                chế bao cấp sang nền kinh tế thị trường theo định hướng XHCN, mô hình kinh tế HTX kiểu
+                                cũ thật sự khó khăn và lâm vào tình thế khủng hoảng phải giải thể hàng loạt.
+                                Trong bối cảnh như thế, ngày 12/5/1989 - UBND Thành phố Hồ Chí Minh có chủ trương chuyển
+                                đổi Ban Quản lý HTX Mua Bán Thành phố trở thành Liên hiệp HTX Mua bán Thành phố Hồ Chí
+                                Minh - Saigon Co.op với 2 chức năng trực tiếp kinh doanh và tổ chức vận động phong trào
+                                HTX.
+                                Saigon Co.op là tổ chức kinh tế HTX theo nguyên tắc xác lập sở hữu tập thể, hoạt động
+                                sản xuất kinh doanh tự chủ và tự chịu trách nhiệm.
+                            </p>
+                            <p>
+                                Từ năm 1992 - 1997, cùng với sự phát triển của nền kinh tế đất nước, các nguồn vốn đầu
+                                tư nước ngoài vào Việt Nam làm cho các Doanh nghiệp phải năng động và sáng tạo để nắm
+                                bắt các cơ hội kinh doanh, học hỏi kinh nghiệm quản lý từ các đối tác nước ngoài.
+                                Saigon Co.op đã khởi đầu bằng việc liên doanh liên kết với các công ty nước ngoài để gia
+                                tăng thêm nguồn lực cho hướng phát triển của mình.
+                                Là một trong số ít đơn vị có giấy phép XNK trực tiếp của Thành phố, hoạt động XNK phát
+                                triển mạnh mẽ mang lại hiệu quả cao, góp phần xác lập uy tín, vị thế của Saigon Co.op
+                                trên thị trường trong và ngoài nước.
+                            </p>
+                            <p>
+                                Sự kiện nổi bật nhất là sự ra đời siêu thị đầu tiên của hệ thống siêu thị Co.opmart là
+                                Co.opmart Cống Quỳnh vào ngày 09/02/1996, với sự giúp đỡ của các phong trào HTX quốc tế
+                                đến từ Nhật, Singapore và Thụy Điển.
+                                Từ đấy loại hình kinh doanh bán lẻ mới, văn minh phù hợp với xu hướng phát triển của
+                                Thành phố Hồ Chí Minh đánh dấu chặng đường mới của Saigon Co.op.
+                            </p>
+                        </div>
+
+                        <div class="mintitle">Nền tảng thương hiệu</div>
+
+                        <div class="textintro">
+                            <p><b>Gắn kết & sẻ chia</b> với lòng <b>tận tâm</b> phục vụ</p>
+                        </div>
+
+                        <div class="mintitle">Tầm nhìn</div>
+
+                        <div class="textintro">
+                            <p>
+                                Với lòng tận tâm phục vụ và khát khao vươn lên, Co.opmart khẳng định <b>Thương hiệu siêu
+                                    thị dẫn đầu tại Việt Nam</b> và phát triển ra khu vực, nhằm đem lại lợi ích tốt nhất
+                                cho khách hàng và cộng đồng
+                            </p>
+                        </div>
+
+                        <div class="mintitle">Cam kết</div>
+
+                        <div class="textintro">
+                            <p>
+                                Co.opmart gắn bó và chăm sóc khách hàng bằng <b>sự tận tâm và thấu hiểu.</b> Chúng tôi
+                                luôn nỗ lực cải tiến nhằm mang lại sự hài lòng và những lợi ích thiết thực cho khách
+                                hàng và cộng đồng
+                            </p>
+                        </div>
+
+                        <div class="mintitle">Giá trị văn hóa</div>
+
+                        <div class="textintro">
+                            <p>
+                                <b>Tận tâm phục vụ</b>
+                            </p>
+                            <p>
+                                Sự tận tâm của chúng tôi xuất phát từ niềm đam mê phục vụ và sự thấu hiểu khách hàng sâu
+                                sắc
+                            </p>
+                            <p>
+                                <b>Liên tục cải tiến</b>
+                            </p>
+                            <p>
+                                Chúng tôi không ngừng cải tiến các sản phẩm và dịch vụ của mình để mang lại những trải
+                                nghiệm mới mẻ cho khách hàng
+                            </p>
+                            <p>
+                                <b>Khát khao vươn lên</b>
+                            </p>
+                            <p>
+                                Chúng tôi khát khao vươn lên hướng đến sự hoàn hảo nhằm đem lại những lợi ích thiết thực
+                                nhất cho khách hàng
+                            </p>
+                            <p>
+                                <b>Hướng đến cộng đồng</b>
+                            </p>
+                            <p>
+                                Chúng tôi luôn hướng đến sự phát triển bền vững gắn với lợi ích của cộng đồng
+                            </p>
+                        </div>
+
+                        <div class="mintitle">Ý nghĩa bộ nhận diện thương hiệu mới Co.opmart</div>
+
+                        <div class="textintro">
+                            <p>
+                                Qua quá trình 2 năm chuẩn bị với sự tư vấn của nhà tư vấn chiến lược thương hiệu hàng
+                                đầu thế giới, công ty Landor, hình ảnh mới của Co.opmart được tiếp nối từ sắc đỏ và xanh
+                                thân quen được chuyển hóa thành sắc hồng thắm biểu trưng cho tâm huyết, sắc xanh dương
+                                đậm của niềm tin mạnh mẽ và sắc xanh lá tươi mới đầy năng động.
+                            </p>
+                            <p>
+                                Hình ảnh trái tim được cách điệu từ chữ Co.op của phong trào hợp tác xã sẽ là biểu tượng
+                                cho sự tận tâm phục vụ cùng với bản chất nhân văn cao đẹp của tinh thần hợp tác xã.
+                                Không bao giờ tự hài lòng với bản thân, luôn khát khao hướng tới những tầm cao mới song
+                                vẫn duy trì giá trị cốt lõi của mình là <b>thân thiện và tin cậy</b>, bộ nhận diện
+                                thương hiệu
+                                và các trải nghiệm mua sắm mới đều xuất phát từ <b>niềm đam mê tận tâm phục vụ.</b>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="boxphai">
+
+                <div class="row mb shadow">
+                    <div class="boxtitle" id="user">TÀI KHOẢN</div>
+
+                    <div class="boxcontent">
+                        <input class="logout" type="button" style="cursor: pointer;" value="Đăng xuất"
+                            onclick="logout()">
+                        <a href="register.html"><input class="register" type="button" style="cursor: pointer;"
+                                value="Đăng ký"></a>
+                    </div>
+                </div>
+
+                <div class="row mb shadow">
+                    <div class="boxtitle2">DANH MỤC</div>
+                    <div class="boxcontent2 menudoc">
+                        <ul>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(1)">Đồng hồ đeo tay</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(2)">Máy tính sách tay</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(3)">Máy ảnh</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(4)">Điện thoại</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(5)">Máy Tính</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(6)">Túi thời trang</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(7)">Trang sức nữ</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(8)">Nón thời trang</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(9)">Túi sách du lịch</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="boxfooter searchbox">
+                        <form action="#">
+                            <input type="text" placeholder="Tìm kiếm" id="">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row shadow">
+                    <div class="boxtitle3">XU HƯỚNG</div>
+                    <div class="boxcontent">
+                        <div class="row mb10 top10">
+                            <img src="/public/image/1.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/3.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/5.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/7.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/9.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mb footer">
+            <h3>Copyright @ 2021</h3>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

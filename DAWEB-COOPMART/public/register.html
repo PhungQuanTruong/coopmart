@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register UI</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+
+        function register() {
+            var arr = window.location.href.split('/');
+            if ($('#username').val() === '' || $('#pass').val() === '' || $('#fullname').val() === '') {
+                alert("Chưa nhập đủ thông tin");
+                return
+            }
+            else {
+                $.post("/getregister/", {
+                    username: $('#username').val(),
+                    pass: $('#pass').val(),
+                    fullname: $('#fullname').val()
+                }, function (data, status) {
+                    {
+                        localStorage.setItem("user", JSON.stringify(data));
+                        window.location.href = "/login";
+                        alert("Đăng ký thành công");
+                    }
+                });
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <section class="box">
+        <div class="design">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="form">
+            <h2>User Register</h2>
+            <input type="email" class="input-field" id="username" placeholder="Email" />
+            <input type="password" class="input-field" id="pass" placeholder="Password" />
+            <input type="name" class="input-field" id="fullname" placeholder="FullName" />
+            <input type="button" style="cursor: pointer;" class="btn" onclick="register()" value="Đăng Ký">
+        </div>
+    </section>
+</body>
+
+</html>

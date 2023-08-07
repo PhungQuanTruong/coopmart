@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get("http://localhost:3000/", function (data, status) {
+                $('#content').html(data)
+            });
+
+            var user = localStorage.getItem("user");
+            if (user === null || user === undefined) {
+                $("#user").html("Tài Khoản")
+            }
+            else {
+                var objUser = JSON.parse(user);
+                $("#user").html(objUser[0].fullname);
+
+                // alert(objUser[0].name)
+            }
+
+        });
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+        }
+
+        function search(event) {
+            if (event.keyCode === 13) {
+                $.post("http://localhost:3000/search", {
+                    search: $('#search').val()
+                }, function (data, status) {
+                    $('#content').html(data)
+                });
+            }
+        }
+
+        function menuClick(productType) {
+
+            $.post("http://localhost:3000/getProductByCatId", {
+                catId: productType
+            }, function (data, status) {
+                $('#content').html(data)
+            });
+
+        }
+    </script>
+    <script>
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="boxcenter">
+
+        <div class="row header">
+            <h1>SIÊU THỊ COOPMART HÀM TÂN</h1>
+        </div>
+        <div class="row mb menu">
+            <ul>
+                <li><a href="index">Trang chủ</a></li>
+                <li><a href="introduce.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="advise.html">Tư vấn</a></li>
+                <li><a class="login" href="login.html">Đăng nhập</a></li>
+            </ul>
+        </div>
+
+        <div class="row mb">
+
+            <div class="boxtrai mr">
+
+                <div class="row">
+                    <div class="banner mb">
+
+                        <!-- Slideshow container -->
+                        <div class="slideshow-container">
+
+                            <!-- Full-width images with number and caption text -->
+                            <div class="mySlides fade">
+                                <div class="numbertext">1 / 4</div>
+                                <img src="/public/image/banner3.png" style="width:100%">
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="numbertext">2 / 4</div>
+                                <img src="/public/image/banner5.jpg" style="width:100%">
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="numbertext">3 / 4</div>
+                                <img src="/public/image/banner7.jpg" style="width:100%">
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="numbertext">4 / 4</div>
+                                <img src="/public/image/banner4.png" style="width:100%">
+                            </div>
+
+                            <!-- Next and previous buttons -->
+                            <button class="w3-button w3-black w3-display-left"
+                                onclick="plusSlides(-1)">&#10094;</button>
+                            <button class="w3-button w3-black w3-display-right"
+                                onclick="plusSlides(1)">&#10095;</button>
+
+                        </div>
+                        <br>
+
+                        <!-- The dots/circles -->
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="content"></div>
+
+            </div>
+
+            <div class="boxphai">
+
+                <div class="row mb shadow">
+                    <div class="boxtitle" id="user">TÀI KHOẢN</div>
+
+                    <div class="boxcontent">
+                        <input class="logout" type="button" style="cursor: pointer;" value="Đăng xuất"
+                            onclick="logout()">
+                        <a href="register.html"><input class="register" type="button" style="cursor: pointer;"
+                                value="Đăng ký"></a>
+                    </div>
+                </div>
+
+                <div class="row mb shadow">
+                    <div class="boxtitle2">DANH MỤC</div>
+                    <div class="boxcontent2 menudoc">
+                        <ul>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(1)">Đồng hồ đeo tay</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(2)">Máy tính sách tay</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(3)">Máy ảnh</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(4)">Điện thoại</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(5)">Máy Tính</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(6)">Túi thời trang</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(7)">Trang sức nữ</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(8)">Nón thời trang</a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;" onclick="menuClick(9)">Túi sách du lịch</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="boxfooter searchbox">
+                        <input type="text" placeholder="Tìm kiếm" id="search" onkeypress="search(event)">
+
+                    </div>
+                </div>
+
+                <div class="row shadow">
+                    <div class="boxtitle3">XU HƯỚNG</div>
+                    <div class="boxcontent">
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/1.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/3.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/5.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/7.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                        <div class="row mb10 top10">
+                            <img src="/public/image/9.jpg" alt="">
+                            <a href="#">Sir Rodney's Marmalade</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mb footer">
+            <h3>Copyright @ 2021</h3>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

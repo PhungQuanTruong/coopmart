@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login UI</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        
+        function login(){
+            var arr = window.location.href.split('/');
+            $.post("/getlogin/",{
+                username: $('#username').val(),
+                pass: $('#pass').val()
+            }, function (data, status) {
+                //alert(JSON.stringify(data));
+                if(data.length ===0){
+                    alert("Tài khoản hoặc mật khẩu sai!!!");
+                }
+                else{
+                    localStorage.setItem("user", JSON.stringify(data));
+                    window.location.href ="/index";
+                    alert("Đăng nhập thành công");
+                }
+            });
+        }
+        
+    </script>
+
+</head>
+<body>
+    <section class="box">
+        <div class="design">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="form">
+            <h2>User Login</h2>
+            <input type="email" class="input-field" id="username" placeholder="Email" />
+            <input type="password" class="input-field" id="pass" placeholder="Password" />
+            <input type="button" style="cursor: pointer;" class="btn" onclick="login()" value="Đăng Nhập">
+            <a href="register.html"><input type="button" style="cursor: pointer;" class="btn"  value="Đăng Ký"></a>
+        </div>
+    </section>
+</body>
+</html>
